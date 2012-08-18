@@ -152,6 +152,8 @@ Module modMain
         Dim cls As New cNetworkDrive
         Dim SS As New clsSecureString
 
+        Dim msg As String = ""
+
         Dim Pass As String
 
         Pass = SS.ToInsecureString(Password)
@@ -169,7 +171,9 @@ Module modMain
             Try
                 cls.MapDrive()
             Catch ex As Exception
-                el.WriteToErrorLog(ex.Message, ex.StackTrace, "Map Drive")
+                msg = Path & vbCrLf
+                msg += ex.Message
+                el.WriteToErrorLog(msg, ex.StackTrace, "Map Drive")
                 Exit Sub
             End Try
         Else
@@ -177,6 +181,8 @@ Module modMain
             Try
                 cls.MapDrive(User, Pass)
             Catch ex As Exception
+                msg = Path & vbCrLf
+                msg += ex.Message
                 el.WriteToErrorLog(ex.Message, ex.StackTrace, "Map Drive")
                 Exit Sub
             End Try
